@@ -26,6 +26,9 @@ def find_synonyms():
         # Extract just the words
         synonyms = [item['word'] for item in results]
         
+        # Requirement: Max 10 synonyms
+        synonyms = synonyms[:10]
+        
         return jsonify({'synonyms': synonyms})
     except requests.RequestException as e:
         return jsonify({'error': f'Failed to fetch synonyms: {str(e)}'}), 500
