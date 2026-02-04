@@ -17,9 +17,16 @@ def find_synonyms():
     if not word:
         return jsonify({'error': 'Word is required'}), 400
 
+    # Sanitize input: Remove special characters/numbers, keep only letters and single spaces
+    import re
+    word = re.sub(r'[^a-zA-Z\s]', '', word).strip()
+    
+    if not word:
+         return jsonify({'error': 'Invalid word format'}), 400
+
     try:
-        # Query Datamuse API for synonyms (rel_syn)
-        response = requests.get(DATAMUSE_API_URL, params={'rel_syn': word})
+        # Query Datamuse API for synonyms (rel_syn) with a 5-second timeout
+        response = requests.get(DATAMUSE_API_URL, params={'rel_syn': word}, timeout=5)
         response.raise_for_status()
         results = response.json()
         
