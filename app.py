@@ -25,16 +25,13 @@ def find_synonyms():
          return jsonify({'error': 'Invalid word format'}), 400
 
     try:
-        # Query Datamuse API for synonyms (rel_syn) with a 5-second timeout
-        response = requests.get(DATAMUSE_API_URL, params={'rel_syn': word}, timeout=5)
+        # Query Datamuse API for synonyms (rel_syn) with max 10 results and timeout
+        response = requests.get(DATAMUSE_API_URL, params={'rel_syn': word, 'max': 10}, timeout=5)
         response.raise_for_status()
         results = response.json()
         
         # Extract just the words
         synonyms = [item['word'] for item in results]
-        
-        # Requirement: Max 10 synonyms
-        synonyms = synonyms[:10]
         
         return jsonify({'synonyms': synonyms})
     except requests.RequestException as e:
