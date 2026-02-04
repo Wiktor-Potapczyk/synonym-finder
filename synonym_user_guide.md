@@ -4,6 +4,26 @@ While a general dictionary helps you understand meanings, the Synonym Finder pro
 
 Use this app when you need to avoid repetition or find a more precise word for your context.
 
+## Installation
+
+### Option 1: Run with Docker (Recommended)
+1.  Ensure **Docker Desktop** is running.
+2.  Run the following command:
+    ```bash
+    docker compose up --build
+    ```
+3.  Access the app at `http://localhost:5000`.
+
+### Option 2: Run with Python
+1.  Install dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+2.  Run the app:
+    ```bash
+    python app.py
+    ```
+
 ## Prerequisites
 
 - Ensure the **Synonym Finder** application is running locally.
@@ -22,7 +42,7 @@ To find synonyms for a specific word:
 
 5.  Review the results displayed in the "Synonyms for..." section.
 
-![Synonym Search Results](images/synonym_results.png)
+![Synonym Search Results](images/synonym_results_limit.png)
 
 ## Validation
 
