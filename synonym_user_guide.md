@@ -32,6 +32,7 @@ To verify that the application is working correctly and meets all requirements:
 1.  Enter a common word (e.g., `happy`).
 2.  Click the **Find Synonyms** button.
 3.  Ensure the list contains between **3 and 10 synonyms**.
+4.  If a word has few synonyms (e.g., `month`), verify that a **warning message** ("Note: Only X relevant synonym(s) found") is displayed.
 
 ### 2. Test Word Combinations
 1.  Enter a phrase such as `big house` (Note: Single words are best supported).
