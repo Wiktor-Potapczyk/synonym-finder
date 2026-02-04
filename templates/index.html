@@ -87,8 +87,15 @@
                 if (response.ok) {
                     queriedWordSpan.textContent = word;
 
+                    if (data.warning) {
+                        const warnDiv = document.createElement('div');
+                        warnDiv.className = 'warning-message';
+                        warnDiv.textContent = data.warning;
+                        list.appendChild(warnDiv);
+                    }
+
                     if (data.synonyms.length === 0) {
-                        list.innerHTML = '<span class="no-results">No synonyms found.</span>';
+                        list.innerHTML += '<span class="no-results">No synonyms found.</span>';
                     } else {
                         data.synonyms.forEach(syn => {
                             const chip = document.createElement('span');
