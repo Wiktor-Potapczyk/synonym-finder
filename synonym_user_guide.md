@@ -26,7 +26,23 @@ To find synonyms for a specific word:
 
 ## Validation
 
-To verify that the application is working correctly:
+To verify that the application is working correctly and meets all requirements:
 
-1.  Check that the results area is visible and contains chips with words (e.g., `rapid`, `quick`).
-2.  Click on any of the result chips (for example, `rapid`) to automatically trigger a new search for that term.
+### 1. Verify Result Count
+1.  Enter a common word (e.g., `happy`).
+2.  Click the **Find Synonyms** button.
+3.  Ensure the list contains between **3 and 10 synonyms**.
+
+### 2. Test Word Combinations
+1.  Enter a phrase such as `big house` (Note: Single words are best supported).
+2.  Verify the app handles the input gracefully (e.g., by sanitizing or attempting search).
+
+### 3. Perform Negative Testing
+1.  Clear the input field.
+2.  Click **Find Synonyms**.
+3.  Confirm the app displays a clear prompt or error (e.g., "Word is required") and does not crash.
+
+### 4. Simulate Connectivity Issues
+1.  Briefly disconnect from the network.
+2.  Attempt a search.
+3.  Verify the app displays an error message explaining the connection issue (timeout or network error).
