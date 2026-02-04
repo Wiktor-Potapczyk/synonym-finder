@@ -17,9 +17,9 @@ def find_synonyms():
     if not word:
         return jsonify({'error': 'Word is required'}), 400
 
-    # Sanitize input: Remove special characters/numbers, keep only letters and single spaces
+    # Sanitize input: Remove special characters, keep letters, numbers, and spaces
     import re
-    word = re.sub(r'[^a-zA-Z\s]', '', word).strip()
+    word = re.sub(r'[^a-zA-Z0-9\s]', '', word).strip()
     
     if not word:
          return jsonify({'error': 'Invalid word format'}), 400
