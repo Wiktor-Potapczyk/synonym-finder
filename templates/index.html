@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Synonym Finder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <main class="container">
+        <div class="card glass-effect">
+            <header>
+                <h1>Synonym Finder</h1>
+                <p>Enhance your vocabulary instantly.</p>
+            </header>
+
+            <div class="search-box">
+                <input type="text" id="wordInput" placeholder="Enter a word (e.g., 'happy')" autocomplete="off">
+                <button id="searchBtn" onclick="findSynonyms()">
+                    <span>Find Synonyms</span>
+                </button>
+            </div>
+
+            <div id="resultsArea" class="results-hidden">
+                <div class="result-header">
+                    <h2>Synonyms for "<span id="queriedWord"></span>"</h2>
+                </div>
+                <div id="synonymList" class="chips-container">
+                    <!-- Synonyms will appear here -->
+                </div>
+            </div>
+
+            <div id="loading" class="hidden">
+                <div class="spinner"></div>
+            </div>
+
+            <div id="error" class="hidden error-message"></div>
+        </div>
+    </main>
+
+    <script>
+        const input = document.getElementById('wordInput');
+
+        // Allow "Enter" key to trigger search
+        input.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                document.getElementById("searchBtn").click();
+            }
+        });
+
+        async function findSynonyms() {
+            const word = input.value.trim();
+            const resultsArea = document.getElementById('resultsArea');
+            const list = document.getElementById('synonymList');
+            const loading = document.getElementById('loading');
+            const errorDiv = document.getElementById('error');
+            const queriedWordSpan = document.getElementById('queriedWord');
+
+            if (!word) return;
+
+            // Reset UI
+            resultsArea.classList.add('results-hidden');
+            errorDiv.classList.add('hidden');
+            list.innerHTML = '';
+            loading.classList.remove('hidden');
+
+            try {
+                const response = await fetch('/find', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ word: word })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    queriedWordSpan.textContent = word;
+
+                    if (data.synonyms.length === 0) {
+                        list.innerHTML = '<span class="no-results">No synonyms found.</span>';
+                    } else {
+                        data.synonyms.forEach(syn => {
+                            const chip = document.createElement('span');
+                            chip.className = 'chip';
+                            chip.textContent = syn;
+                            chip.onclick = () => {
+                                // Allow clicking a synonym to search for IT
+                                input.value = syn;
+                                findSynonyms();
+                            };
+                            list.appendChild(chip);
+                        });
+                    }
+                    resultsArea.classList.remove('results-hidden');
+                } else {
+                    errorDiv.textContent = data.error || 'An error occurred.';
+                    errorDiv.classList.remove('hidden');
+                }
+            } catch (err) {
+                errorDiv.textContent = 'Failed to connect to the server.';
+                errorDiv.classList.remove('hidden');
+            } finally {
+                loading.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+
+</html>
