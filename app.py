@@ -33,7 +33,13 @@ def find_synonyms():
         # Extract just the words
         synonyms = [item['word'] for item in results]
         
-        return jsonify({'synonyms': synonyms})
+        response_data = {'synonyms': synonyms}
+        
+        # Requirement: "Display at least 3 synonyms". Notify if fewer are available.
+        if len(synonyms) < 3:
+            response_data['warning'] = f"Note: Only {len(synonyms)} relevant synonym(s) found."
+        
+        return jsonify(response_data)
     except requests.RequestException as e:
         return jsonify({'error': f'Failed to fetch synonyms: {str(e)}'}), 500
 

@@ -251,3 +251,13 @@ h2 {
         font-size: 2rem;
     }
 }
+.warning-message {
+    width: 100%;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(251, 191, 36, 0.2);
+    font-size: 0.95rem;
+}
