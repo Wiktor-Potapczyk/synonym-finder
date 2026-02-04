@@ -4,6 +4,7 @@ import requests
 app = Flask(__name__)
 
 DATAMUSE_API_URL = "https://api.datamuse.com/words"
+# DATAMUSE_API_URL = "https://invalid-api.datamuse.com/words" # Intentional break for testing
 
 @app.route('/')
 def index():

@@ -22,3 +22,14 @@ A modern, "Vibrant and Premium" web application built with Flask that helps user
 
 ## Documentation
 See [User Guide](synonym_user_guide.md) for detailed usage instructions.
+
+## Running with Docker (Recommended)
+
+To run the application in a containerized environment:
+
+1.  Ensure **Docker Desktop** is installed and running.
+2.  Run the following command in the project root:
+    ```bash
+    docker compose up --build
+    ```
+3.  Access the app at `http://localhost:5000`.
